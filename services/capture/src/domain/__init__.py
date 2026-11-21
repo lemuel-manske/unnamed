@@ -13,6 +13,7 @@ from .task import (
     TaskRepository,
     new_attempt_id,
 )
+from .url_identity import InvalidURLIdentity, URLIdentity, identify_url
 
 __all__ = [
     "CaptureAllocator",
@@ -20,12 +21,15 @@ __all__ = [
     "CaptureReservation",
     "InvalidReservationRenewal",
     "InvalidTaskClaimRenewal",
+    "InvalidURLIdentity",
     "OutboxMessage",
     "OutboxRepository",
     "PageCapture",
     "PageTask",
     "TaskClaim",
     "TaskRepository",
+    "URLIdentity",
+    "identify_url",
     "new_attempt_id",
     "new_reservation_id",
 ]

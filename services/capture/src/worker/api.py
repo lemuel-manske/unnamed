@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol
 
-from domain import OutboxMessage, PageCapture, TaskClaim
+from domain import PageCapture, TaskClaim
 
 
 @dataclass(frozen=True)
@@ -40,9 +40,3 @@ class ArtifactStore(Protocol):
     async def create_attempt_directory(self, claim: TaskClaim) -> Path: ...
 
     async def discard_attempt(self, claim: TaskClaim, directory: Path) -> None: ...
-
-
-class MessagePublisher(Protocol):
-    """Publishes an immutable message envelope to the broker."""
-
-    async def publish(self, message: OutboxMessage) -> None: ...

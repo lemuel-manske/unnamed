@@ -207,3 +207,15 @@ resource "aws_dynamodb_table" "capture_outbox" {
     projection_type = "ALL"
   }
 }
+
+resource "aws_dynamodb_table" "capture_browser_slots" {
+  name         = "capture_browser_slots"
+  billing_mode = "PAY_PER_REQUEST"
+
+  hash_key = "slotId"
+
+  attribute {
+    name = "slotId"
+    type = "S"
+  }
+}

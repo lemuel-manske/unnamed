@@ -12,9 +12,22 @@ Install the pinned Python toolchain and dependencies with `make install`.
 Install the matching Playwright browser with `uv run playwright install chromium`.
 
 - `make install`: download dependencies.
-- `make run`: start the Coordinator.
-- `make fmt`: apply repository Go formatting conventions.
-- `make test`: run all tests.
-- `make check`: run static analysis and compile all packages without executing tests.
+- `make db-up`: start isolated DynamoDB Local and RabbitMQ.
+- `make db-down`: stop local dependencies.
+- `make run`: start the Capture API and background worker runtime.
+- `make fmt`: format and lint the Python service.
+- `make test-unit`: run unit tests.
+- `make test-integration`: run tests requiring DynamoDB Local.
+- `make check`: run static analysis.
 
-The local recording prototype uses pywb as an HTTP(S) recording proxy.
+The local recording prototype uses pywb as an HTTP(S) recording proxy. The runtime uses a durable RabbitMQ command queue and a DynamoDB-backed transactional outbox; publisher confirms are required before an outbox record is marked as published.
+
+## Configuration
+
+| Variable | Default | Description |
+|---|---|---|
+| `AWS_ACCESS_KEY_ID` | `test` | AWS SDK access key |
+| `AWS_SECRET_ACCESS_KEY` | `test` | AWS SDK secret key |
+| `AWS_EC2_METADATA_DISABLED` | `true` | Disable EC2 metadata service |
+| `DYNAMODB_ENDPOINT_URL` | `http://localhost:4566` | Optional DynamoDB-compatible endpoint |
+| `RABBITMQ_URL` | `amqp://castellani:local-development-only@localhost:5672/` | Message broker connection |

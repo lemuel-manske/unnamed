@@ -1,11 +1,11 @@
-.PHONY: install run fmt test test-unit test-integration check
+.PHONY: install run fmt test test-unit test-integration check db-up db-down
 
 install:
 	uv sync --all-groups
 
 
 db-up:
-	docker compose up -d --wait dynamodb
+	docker compose up -d --wait dynamodb rabbitmq
 
 db-down:
 	docker compose down
@@ -30,4 +30,4 @@ check:
 
 
 run:
-	PYTHONPATH=src uv run uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
+	PYTHONPATH=src uv run uvicorn api.main:app --host 0.0.0.0 --port 8000
